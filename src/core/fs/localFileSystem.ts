@@ -47,7 +47,12 @@ export default class LocalFileSystem extends FileSystem {
   }
 
   close(fd: number): Promise<void> {
-    return fse.close(fd);
+    return fse.close(fd).catch(err => {
+      if (err && err.code === 'EBADF') {
+        return;
+      }
+      throw err;
+    });
   }
 
   fstat(fd: number): Promise<FileStats> {

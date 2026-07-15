@@ -6,6 +6,8 @@ import RemoteFileSystem from '../../src/core/fs/remoteFileSystem';
 
 // @ts-ignore
 export default class LocalRemoteFileSystem extends RemoteFileSystem {
+  fdMap = new Map<number, string>();
+
   _createClient() {
     return {};
   }
@@ -21,6 +23,14 @@ export default class LocalRemoteFileSystem extends RemoteFileSystem {
   }
 
   futimes(fd: number, atime: number, mtime: number): Promise<void> {
+    const filePath = this.fdMap.get(fd);
+    if (filePath) {
+      return fse.utimes(
+        filePath,
+        this.toRemoteTimeInSecnonds(atime),
+        this.toRemoteTimeInSecnonds(mtime)
+      );
+    }
     return fse.futimes(
       fd,
       this.toRemoteTimeInSecnonds(atime),
@@ -51,7 +61,14 @@ export default class LocalRemoteFileSystem extends RemoteFileSystem {
     enumerable: false,
     value(...args) {
       const fn = localfs[method];
-      return fn.call(this, ...args);
+      const result = fn.call(this, ...args);
+      if (method === 'open') {
+        return Promise.resolve(result).then(fd => {
+          this.fdMap.set(fd, args[0]);
+          return fd;
+        });
+      }
+      return result;
     },
   });
 });

@@ -1,4 +1,11 @@
 const Joi = require('joi');
+Joi.validate = (value, schema, options) => {
+  const result = Joi.object(schema).validate(value, options);
+  if (result.error === undefined) {
+    result.error = null;
+  }
+  return result;
+};
 
 const nullable = schema => schema.optional().allow(null);
 

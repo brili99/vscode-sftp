@@ -238,9 +238,9 @@ function mergeConfigWithExternalRefer(
   const parsedSSHConfig = sshConfig.parse(sshConfigContent);
   const section = parsedSSHConfig.find({
     Host: copyed.host,
-  });
+  }) as any;
 
-  if (section === null) {
+  if (!section) {
     return copyed;
   }
 
@@ -253,7 +253,7 @@ function mergeConfigWithExternalRefer(
     ['connecttimeout', 'connTimeout'],
   ]);
 
-  section.config.forEach(line => {
+  section.config.forEach((line: any) => {
     if (!line.param) {
       return;
     }

@@ -22,7 +22,7 @@ class _Resource {
   constructor(uri: Uri) {
     this._uri = uri;
     if (UResource.isRemote(uri)) {
-      const query = querystring.parse<{ [x: string]: string }>(this._uri.query);
+      const query = querystring.parse(this._uri.query) as any;
       this._remoteId = parseInt(query.remoteId, 10);
 
       if (query.fsPath === undefined) {

@@ -65,7 +65,7 @@ export const sync2Remote = createFileHandler<SyncOption>({
   },
   transformOption() {
     const config = this.config;
-    const syncOption = config.syncOption || {};
+    const syncOption = config.syncOption || ({} as any);
     return {
       perserveTargetMode: config.protocol === 'sftp' && !config.filePerm && !config.dirPerm,
       useTempFile: config.useTempFile,
@@ -105,7 +105,7 @@ export const sync2Local = createFileHandler<SyncOption>({
   },
   transformOption() {
     const config = this.config;
-    const syncOption = config.syncOption || {};
+    const syncOption = config.syncOption || ({} as any);
     return {
       perserveTargetMode: false,
       // remoteTimeOffsetInHours: config.remoteTimeOffsetInHours,
