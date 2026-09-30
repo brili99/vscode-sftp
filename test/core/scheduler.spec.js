@@ -14,9 +14,10 @@ const randomInt = function(min, max) {
 };
 const delay = millisecends =>
   new Promise(resolve => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       resolve();
     }, millisecends);
+    if (timer.unref) timer.unref();
   });
 const fixture = Symbol('fixture');
 
