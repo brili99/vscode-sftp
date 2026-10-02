@@ -5,7 +5,7 @@ const Nothing = (() => {
 	fn.valueOf = () => false
 
 	return new Proxy(fn, {
-		get: (o, key) => o.hasOwnProperty(key) ? o[key] : Nothing
+		get: (o, key) => Object.prototype.hasOwnProperty.call(o, key) ? o[key] : Nothing
 	})
 })()
 
