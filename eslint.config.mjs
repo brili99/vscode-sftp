@@ -7,7 +7,6 @@ export default tseslint.config(
   {
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-unsafe-function-type": "off",
       "@typescript-eslint/no-wrapper-object-types": "off",
@@ -20,10 +19,16 @@ export default tseslint.config(
       "no-case-declarations": "off",
       "no-async-promise-executor": "off",
       "@typescript-eslint/no-unused-expressions": "off",
-      "no-var": "off",
       "prefer-rest-params": "off",
       "no-useless-assignment": "off",
-      "prefer-const": "off"
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_",
+          "caughtErrorsIgnorePattern": "^_"
+        }
+      ]
     },
     ignores: [
       "dist/",

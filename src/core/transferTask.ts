@@ -186,11 +186,11 @@ export default class TransferTask implements Task {
             Math.floor(atime / 1000),
             Math.floor(mtime / 1000)
           );
-        } catch (error) {
+        } catch (_error) {
           if (!hasWarnedModifedTimePermission) {
             hasWarnedModifedTimePermission = true;
             logger.warn(
-              `Can't set modified time to the file because ${error.message}`
+              `Can't set modified time to the file because ${(_error as Error).message}`
             );
           }
         }
@@ -203,7 +203,7 @@ export default class TransferTask implements Task {
         } else {
           try {
             await targetFs.unlink(target);
-          } catch(error) {
+          } catch(_error) {
             // Just ignore
           }
           await targetFs.rename(uploadTarget, target);
