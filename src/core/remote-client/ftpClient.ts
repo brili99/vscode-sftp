@@ -15,7 +15,7 @@ Client.prototype._send = function(cmd: string, cb: (err: Error) => void, promote
       return;
     }
   }
-  var queueLen = this._queue.length;
+  const queueLen = this._queue.length;
   if (!this._curReq && queueLen && this._socket && this._socket.readable) {
     this._curReq = this._queue.shift();
     if (this._curReq.cmd !== 'ABOR') {
