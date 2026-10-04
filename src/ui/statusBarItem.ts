@@ -70,6 +70,9 @@ export default class StatusBarItem {
       this.curFrameOfSpinner = (this.curFrameOfSpinner + 1) % totalFrame;
       this._render();
     }, this.spinner.interval);
+    if (this.spinnerTimer.unref) {
+      this.spinnerTimer.unref();
+    }
     this._render();
   }
 
@@ -98,6 +101,9 @@ export default class StatusBarItem {
     this._render();
     if (hideAfterTimeout) {
       this.resetTimer = setTimeout(this.reset, hideAfterTimeout);
+      if (this.resetTimer.unref) {
+        this.resetTimer.unref();
+      }
     }
   }
 
