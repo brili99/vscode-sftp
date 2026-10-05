@@ -1,7 +1,7 @@
 import * as Client from 'ftp';
 import RemoteClient, { ConnectOption } from './remoteClient';
 
-// tslint:disable
+// eslint-disable
 Client.prototype._send = function(cmd: string, cb: (err: Error) => void, promote: boolean) {
   clearTimeout(this._keepalive);
   if (cmd !== undefined) {
@@ -24,7 +24,7 @@ Client.prototype._send = function(cmd: string, cb: (err: Error) => void, promote
     }
   } else if (!this._curReq && !queueLen && this._ending) this._reset();
 };
-// tslint:enable
+// eslint-enable
 
 Client.prototype.setLastMod = function(path: string, date: Date, cb) {
   const dateStr =
@@ -46,7 +46,7 @@ export default class FTPClient extends RemoteClient {
   }
 
   _hasProvideAuth(connectOption: ConnectOption) {
-    // tslint:disable-next-line triple-equals
+
     return connectOption.password != undefined;
   }
 

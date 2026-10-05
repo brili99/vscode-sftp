@@ -1,4 +1,5 @@
-import GitIgnore from 'ignore';
+import ignore from 'ignore';
+const GitIgnore = ignore;
 
 export default class Ignore {
   static from(pattern) {
